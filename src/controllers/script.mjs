@@ -76,21 +76,21 @@ widthRun.addEventListener("click", ()=>{
 });
 
 minimalDistance.addEventListener("click", ()=>{
-    const nodoOrigenCamino = document.getElementById('origen-dij').value.trim();
-    const nodoDestinoCamino = document.getElementById('destino').value.trim();
+    let origenDij = document.getElementById('origen-dij').value.trim();
+    let destinoDij = document.getElementById('destino').value.trim();
 
-    if (nodoOrigenCamino === '' || nodoDestinoCamino === '') {
+    if (origenDij === '' || destinoDij === '') {
         Swal.fire("Debes ingresar nodos válidos para calcular el camino más corto.");
         return;
-    }
+    }0
 
-    const shortestDistance = graph.dijkstra(nodoOrigenCamino, nodoDestinoCamino);
+    let shortestDistance = graph.dijkstra(origenDij, destinoDij);
 
     if (shortestDistance === 1000000) {
-        Swal.fire(`No se encontró camino entre "${nodoOrigenCamino}" y "${nodoDestinoCamino}"`);
+        Swal.fire(`No se encontró camino entre "${origenDij}" y "${destinoDij}"`);
     } else {
        
-        Swal.fire(`El camino más corto entre "${nodoOrigenCamino}" y "${nodoDestinoCamino}" es ${shortestDistance}`);
+        Swal.fire(`El camino más corto entre "${origenDij}" y "${destinoDij}" es ${shortestDistance}`);
         }
 });
 
