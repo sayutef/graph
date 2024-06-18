@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>NewGraph</title>
+</head>
+<body>
+    <div class="principal">
+        <div class="cabecera">
+            <input placeholder="Distance minime" required id="minDistance">
+            <img src="img/serch.png" class="imgsearch">
+        </div>
+    </div>
+    <div class="father">
+        <div class="box">
+            <input type="text" placeholder="add citys origen" required id="city">
+            <input type="text" placeholder="add distance" required id="addDistance">
+            <button id="add-btn">add</button>
+            <input type="text" placeholder="origen" required id="origen">
+            <input type="text" placeholder="Distance" required id="distance">
+            <input type="text" placeholder="add citys destino" required id="destino">
+            
+            <button id="addEdge-btn">Agregar conexion</button>
+            <button id="recorrido-btn">Recorrido por Profundidad</button>
+            <button id="recorridoAnchura-btn">Recorrido anchura</button>
+            <input type="text" placeholder="origen" required id="origen-dij">
+            <input type="text" placeholder="destino" required id="destino-dij">
+            <button id="distanceMin-btn">Distancia minima</button>
+           
+            
+        </div>
+    </div>
+    <div id="imprimirAll"></div>
+    
+    <script type="module" src="./src/controllers/script.mjs"></script>
+</body>
+</html>
