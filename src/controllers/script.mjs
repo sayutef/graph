@@ -16,7 +16,7 @@ add.addEventListener("click", () =>{
     let city = document.getElementById("city").value;
     let distancia = document.getElementById("addDistance").value;
 
-    if(!city || !distancia){
+    if(!city){
         Swal.fire("Por favor, completa todos los campos.");
         return;
     }
@@ -77,21 +77,20 @@ widthRun.addEventListener("click", ()=>{
 
 minimalDistance.addEventListener("click", ()=>{
     let origenDij = document.getElementById('origen-dij').value.trim();
-    let destinoDij = document.getElementById('destino').value.trim();
+    let destinoDij = document.getElementById('destino-dij').value.trim();
 
     if (origenDij === '' || destinoDij === '') {
         Swal.fire("Debes ingresar nodos válidos para calcular el camino más corto.");
         return;
-    }0
+    }
 
     let shortestDistance = graph.dijkstra(origenDij, destinoDij);
 
-    if (shortestDistance === 1000000) {
+    if (shortestDistance === Infinity) {
         Swal.fire(`No se encontró camino entre "${origenDij}" y "${destinoDij}"`);
     } else {
-       
-        Swal.fire(`El camino más corto entre "${origenDij}" y "${destinoDij}" es ${shortestDistance}`);
-        }
+        Swal.fire(`La distancia más corta entre "${origenDij}" y "${destinoDij}" es ${shortestDistance}`);
+    }
 });
 
 

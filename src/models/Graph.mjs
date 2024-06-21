@@ -19,7 +19,7 @@ export default class Graph {
 
     addEdge(node1, node2, weight = 1) {
         if (this.#map.has(node1) && this.#map.has(node2)) {
-            this.#listAdyacencia[this.#map.get(node1)].push(node2, weight);
+            this.#listAdyacencia[this.#map.get(node1)].push( node2, weight);
             return true;
         }
         return false;
@@ -108,59 +108,75 @@ export default class Graph {
 
     dijkstra(startVertex, endVertex) {
         const inf = 1000000;
-        const D = new Array(this.numVertices()).fill(inf); 
-        const visited = new Array(this.numVertices()).fill(false); 
-        const startIndex = this.#map.get(startVertex); 
-        const endIndex = this.#map.get(endVertex); 
-        D[startIndex] = 0; 
+        const numVertices = this.numVertices();
+        let D = [];   
+        let L_p = [];
+        let L = []; 
+        let V = [];   
+        
+        for (let i = 0; i < numVertices; i++) {
+            D.push(inf);   
+            L_p.push(i);    
+            V.push(i);     
+        }
+        
+        const start = this.#map.get(startVertex);
+        const end = this.#map.get(endVertex);
+        
+        if (start === undefined || end === undefined) {
+            return Infinity; 
+        }
     
-        let allVisited = false;
-    
-        while (!allVisited) {
-            let u = -1;
+        D[start] = 0;
+        
+        console.log('Inicialización:');
+        console.log('D:', D);
+        console.log('L_p:', L_p);
+        console.log('L:', L);
+        console.log('V:', V);
+        console.log('------------------');
+        
+        while (L_p.length != 0) {
+            let u = null;
             let minDistance = inf;
         
-            for (let i = 0; i < this.numVertices(); i++) {
-                if (!visited[i] && D[i] < minDistance) {
-                    minDistance = D[i];
-                    u = i;
+            for (let i = 0; i < L_p.length; i++) {
+                if (D[L_p[i]] < minDistance) {
+                    minDistance = D[L_p[i]];
+                    u = L_p[i];
                 }
             }
-    
-            if (u === -1) {
-                allVisited = true; 
-                continue;
+        
+            if (u === null) {
+                break;
             }
-    
-            visited[u] = true; 
-    
+        
+            L.push(u);
+            L_p = L_p.filter(vertex => vertex !== u);
+        
             const neighborsLinkedList = this.#listAdyacencia[u];
-            if (!neighborsLinkedList) {
-                continue;
-            }
-            let current = neighborsLinkedList.head;
+            let current = neighborsLinkedList.head; 
+        
             while (current) {
-                const neighbor = this.#map.get(current.value.node); 
-                const weight = current.value.weight; 
-               
-                if (D[u] + weight < D[neighbor]) {
+                const neighbor = this.#map.get(current.value.node);
+                const weight = current.value.weight;
+        
+                if (L_p.includes(neighbor) && D[u] + weight < D[neighbor]) {
                     D[neighbor] = D[u] + weight;
                 }
                 current = current.next;
             }
-    
-            allVisited = true;
-            for (let i = 0; i < visited.length; i++) {
-                if (!visited[i]) {
-                    allVisited = false;
-                    break;
-                }
-            }
+        
+            console.log('Iteración:');
+            console.log('u:', u);
+            console.log('D:', D);
+            console.log('L_p:', L_p);
+            console.log('L:', L);
+            console.log('V:', V);
+            console.log('------------------');
         }
-    
-        return D[endIndex];
+        
+        return D[end];
     }
     
-    
-
-}
+}    
